@@ -13,6 +13,7 @@ import {
   CreditCard,
   TrendingUp,
   User,
+  type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { LogoMark } from "./Logo";
@@ -146,7 +147,7 @@ function SidebarItem({
   item,
   active,
 }: {
-  item: { href: string; label: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }> };
+  item: { href: string; label: string; icon: LucideIcon };
   active: boolean;
 }) {
   const Icon = item.icon;
