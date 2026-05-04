@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 255 255 255;
+  --foreground: 10 37 64;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+/* Hide scrollbars while keeping scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Subtle dotted background for hero sections */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.grid-fade {
+  background-image: linear-gradient(rgba(10, 37, 64, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 37, 64, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.glass-dark {
+  background: rgba(10, 37, 64, 0.6);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+}
+
+.btn-press {
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Hero gradient */
+.hero-gradient {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #FF6B35 0%, transparent 50%),
+    linear-gradient(180deg, #0A2540 0%, #061728 100%);
+}
