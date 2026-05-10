@@ -682,6 +682,175 @@ export const PRESS = [
   { name: "Startup Daily", display: "Startup Daily" },
 ];
 
+export interface Scenario {
+  id: string;
+  name: string;
+  capture: string;
+  badge: string;
+  tone: "navy" | "orange" | "success";
+  popular?: boolean;
+  rows: { metric: string; y1: string; y2: string; y3: string }[];
+  valuation: string;
+  roi: string;
+}
+
+export const SCENARIOS: Scenario[] = [
+  {
+    id: "conservative",
+    name: "Conservative",
+    capture: "1% of AU tradie market",
+    badge: "Safe floor",
+    tone: "navy",
+    rows: [
+      { metric: "Paying tradies (EOY)", y1: "800", y2: "3,500", y3: "8,000" },
+      { metric: "Annual revenue", y1: "$340K", y2: "$2.1M", y3: "$5.8M" },
+      { metric: "EBITDA", y1: "−$380K", y2: "+$300K", y3: "+$2.3M" },
+    ],
+    valuation: "$45M – $70M",
+    roi: "50× – 80×",
+  },
+  {
+    id: "realistic",
+    name: "Realistic",
+    capture: "3% of AU tradie market",
+    badge: "Base case",
+    tone: "orange",
+    popular: true,
+    rows: [
+      { metric: "Paying tradies (EOY)", y1: "1,500", y2: "6,000", y3: "13,500" },
+      { metric: "Annual revenue", y1: "$680K", y2: "$3.8M", y3: "$9.8M" },
+      { metric: "EBITDA", y1: "−$170K", y2: "+$1.4M", y3: "+$5.0M" },
+    ],
+    valuation: "$80M – $120M",
+    roi: "90× – 140×",
+  },
+  {
+    id: "ambitious",
+    name: "Ambitious",
+    capture: "5% + NZ expansion",
+    badge: "Upside case",
+    tone: "success",
+    rows: [
+      { metric: "Paying tradies (EOY)", y1: "2,500", y2: "10,000", y3: "22,000" },
+      { metric: "Annual revenue", y1: "$1.1M", y2: "$6.2M", y3: "$15.0M" },
+      { metric: "EBITDA", y1: "+$50K", y2: "+$2.8M", y3: "+$8.0M" },
+    ],
+    valuation: "$150M – $220M",
+    roi: "175× – 260×",
+  },
+];
+
+export const TEAM = [
+  {
+    name: "Braxton Harkotsikas",
+    role: "Founder & Strategic Sponsor",
+    photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
+    bio: "Capital, strategic vision, network access across Australian construction & marketing companies. Direct supply-side advantage: thousands of tradie relationships through existing operations.",
+    commitment: "1 day/week · Board-level oversight",
+    superpower: "Solves the supply-side cold-start problem",
+  },
+  {
+    name: "Marwan",
+    role: "Co-founder, Head of Product & Delivery",
+    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    bio: "Product strategy, roadmap, build management. Manages offshore senior engineering team delivering at 1/3 of local agency cost. Single point of execution accountability.",
+    commitment: "4 days/week · Full-time execution",
+    superpower: "Ships faster &amp; cheaper than any AU agency",
+  },
+];
+
+export const FUTURE_HIRES = [
+  { role: "Senior Mobile Engineer (RN)", phase: "M2", type: "Offshore senior", cost: "$80K" },
+  { role: "Senior Backend Engineer", phase: "M2", type: "Offshore senior", cost: "$70K" },
+  { role: "Senior Product Designer", phase: "M1", type: "Contract", cost: "$45K" },
+  { role: "Growth / Marketing Lead", phase: "M5", type: "Local AU", cost: "$120K" },
+  { role: "Sales — Tradie outreach (×2)", phase: "M5", type: "Local AU", cost: "$130K" },
+  { role: "Customer & Tradie Support", phase: "M7", type: "Hybrid", cost: "$60K" },
+];
+
+export const RISKS = [
+  {
+    risk: "HiPages copies the exclusive-match model",
+    likelihood: "Medium",
+    mitigation: "Speed to market is our defense. Their tech debt and current model dependence mean a 12–18 month minimum copy lag — by then we have brand, network effects, and tradie loyalty.",
+  },
+  {
+    risk: "Tradie-side acquisition slower than projected",
+    likelihood: "High",
+    mitigation: "Braxton's construction network provides a warm-start advantage no competitor can replicate. Direct outreach via existing relationships from day one.",
+  },
+  {
+    risk: "Customer CAC higher than projected",
+    likelihood: "Medium",
+    mitigation: "Multi-channel approach. Heavy bias toward organic, referral, and SEO from month 1. Paid channels only after unit economics are validated.",
+  },
+  {
+    risk: "Burn rate exceeds plan before break-even",
+    likelihood: "Medium",
+    mitigation: "Phased capital deployment with explicit stop-go gates. Every dollar after Phase 1 is conditional on milestone delivery.",
+  },
+  {
+    risk: "App Store / Play Store policy changes",
+    likelihood: "Low",
+    mitigation: "Web fallback. Direct payment via Stripe for non-subscription transactions. Independent web app for desktop tradie management.",
+  },
+];
+
+export const EXIT_PATHS = [
+  {
+    title: "Strategic acquisition",
+    likelihood: "Most likely",
+    timing: "Months 24–36",
+    multiple: "8× – 15× ARR",
+    range: "$80M – $150M",
+    acquirers: "HiPages (defensive), REA Group, News Corp / Domain, Houzz, Thumbtack",
+    tone: "orange",
+  },
+  {
+    title: "ASX IPO",
+    likelihood: "If growth > 50% YoY",
+    timing: "Months 30–42",
+    multiple: "10× – 20× ARR",
+    range: "$100M – $200M+",
+    acquirers: "Following Airtasker (ASX:ART, IPO'd at $260M in 2021)",
+    tone: "navy",
+  },
+  {
+    title: "Series A cash-out",
+    likelihood: "Optional liquidity",
+    timing: "Months 18–24",
+    multiple: "6× – 10× ARR",
+    range: "$40M – $80M",
+    acquirers: "Founders take 20–30% secondary, continue building",
+    tone: "success",
+  },
+];
+
+export const ROI_TABLE = [
+  { scenario: "Conservative", arr: "$5.8M", valuation: "$45M – $70M", multiple: "50× – 80×" },
+  { scenario: "Realistic", arr: "$9.8M", valuation: "$80M – $120M", multiple: "90× – 140×", highlight: true },
+  { scenario: "Ambitious", arr: "$15.0M", valuation: "$150M – $220M", multiple: "175× – 260×" },
+];
+
+export const WHY_NOW = [
+  {
+    title: "Tradie discontent peaking",
+    desc: "HiPages reported a 7% decline in active paying tradies in FY24. Trustpilot avg 1.5/5 stars. Reddit & Facebook groups asking 'what's the alternative?'",
+  },
+  {
+    title: "Mobile penetration is total",
+    desc: "95% of Aussie tradies use a smartphone as their primary work device. They check it 80+ times a day. Conditioned to swipe interfaces.",
+  },
+  {
+    title: "Build costs collapsed",
+    desc: "Modern stacks (RN, Supabase, Stripe) cut MVP cost 60% since 2018. $200–300K builds what used to cost $800K–$1.2M.",
+  },
+  {
+    title: "No major entrant since 2014",
+    desc: "Airtasker launched 11 years ago. ServiceSeeking and Oneflare are older. The category has been ossified for over a decade.",
+  },
+];
+
 export const CITY_HEAT = [
   { city: "Sydney", x: 78, y: 55, intensity: 1.0, count: 3284 },
   { city: "Melbourne", x: 70, y: 78, intensity: 0.85, count: 2671 },

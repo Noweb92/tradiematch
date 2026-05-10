@@ -38,6 +38,11 @@ import {
   MRR_PROJECTION,
   COMPETITORS,
   TESTIMONIALS,
+  SCENARIOS,
+  TEAM,
+  RISKS,
+  EXIT_PATHS,
+  ROI_TABLE,
 } from "@/lib/mockData";
 import { AustraliaMap } from "@/components/AustraliaMap";
 import { CountUp } from "@/components/CountUp";
@@ -528,6 +533,344 @@ export default function InvestorPage() {
           ))}
         </div>
 
+        {/* Three scenarios */}
+        <div className="mt-6">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+            <div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-navy/50">
+                Three scenarios — bottoms-up
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                Pick your case. Every input is sourced.
+              </h3>
+              <p className="text-sm text-navy/55 mt-1 max-w-xl">
+                Derived from public HiPages &amp; Airtasker per-user metrics, adjusted for tradie focus and AU market dynamics.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-4 items-stretch">
+            {SCENARIOS.map((s, i) => (
+              <motion.div
+                key={s.id}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07 }}
+                className={cn(
+                  "relative rounded-2xl border-2 p-5 flex flex-col",
+                  s.popular
+                    ? "border-orange bg-gradient-to-br from-orange/5 to-white shadow-card lg:scale-[1.02] z-10"
+                    : "border-navy/8 bg-white shadow-soft"
+                )}
+              >
+                {s.popular && (
+                  <div className="absolute -top-3 left-5 px-2.5 py-0.5 rounded-full bg-orange text-white text-[10px] font-black uppercase tracking-wider shadow-glow">
+                    ⭐ Base case
+                  </div>
+                )}
+
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-navy/50">
+                      Scenario {String.fromCharCode(65 + i)}
+                    </div>
+                    <h4 className="text-xl font-black mt-0.5">{s.name}</h4>
+                    <div className="text-xs text-navy/60 font-medium mt-0.5">
+                      {s.capture}
+                    </div>
+                  </div>
+                  <span
+                    className={cn(
+                      "shrink-0 px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider",
+                      s.tone === "orange"
+                        ? "bg-orange/15 text-orange"
+                        : s.tone === "success"
+                        ? "bg-success/15 text-success"
+                        : "bg-navy/[0.08] text-navy"
+                    )}
+                  >
+                    {s.badge}
+                  </span>
+                </div>
+
+                <table className="w-full text-xs mt-2">
+                  <thead>
+                    <tr className="text-navy/45 text-[10px] uppercase tracking-wider font-bold">
+                      <th className="text-left pb-1.5"></th>
+                      <th className="text-right pb-1.5">Y1</th>
+                      <th className="text-right pb-1.5">Y2</th>
+                      <th className="text-right pb-1.5">Y3</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {s.rows.map((r) => (
+                      <tr key={r.metric} className="border-t border-navy/8">
+                        <td className="py-2 text-navy/65 font-medium">
+                          {r.metric}
+                        </td>
+                        <td className="py-2 text-right font-bold text-navy tabular-nums">
+                          {r.y1}
+                        </td>
+                        <td className="py-2 text-right font-bold text-navy tabular-nums">
+                          {r.y2}
+                        </td>
+                        <td className="py-2 text-right font-bold text-navy tabular-nums">
+                          {r.y3}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                <div className="mt-4 pt-4 border-t-2 border-dashed border-navy/10 grid grid-cols-2 gap-3">
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-navy/45">
+                      Y3 valuation
+                    </div>
+                    <div className="font-black text-navy text-sm tabular-nums mt-0.5">
+                      {s.valuation}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-navy/45">
+                      ROI on $850K
+                    </div>
+                    <div
+                      className={cn(
+                        "font-black text-sm tabular-nums mt-0.5",
+                        s.tone === "orange"
+                          ? "text-orange"
+                          : s.tone === "success"
+                          ? "text-success"
+                          : "text-navy"
+                      )}
+                    >
+                      {s.roi}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Team */}
+        <div className="mt-6 rounded-2xl bg-white border border-navy/8 p-5 sm:p-6 shadow-soft">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+            <div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-navy/50">
+                Team &amp; execution
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                Lean by design. Senior by hire.
+              </h3>
+            </div>
+            <div className="text-xs text-navy/55 font-medium">
+              Offshore senior · 1/3 local cost · AI-augmented
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {TEAM.map((m) => (
+              <div
+                key={m.name}
+                className="rounded-2xl bg-gradient-to-br from-navy/[0.02] to-orange/[0.03] border border-navy/8 p-5 flex gap-4"
+              >
+                <img
+                  src={m.photo}
+                  alt={m.name}
+                  className="w-16 h-16 rounded-2xl object-cover shadow-soft shrink-0"
+                />
+                <div className="min-w-0">
+                  <div className="font-black text-navy text-base">{m.name}</div>
+                  <div className="text-xs text-orange font-bold mt-0.5">
+                    {m.role}
+                  </div>
+                  <p className="text-xs text-navy/65 mt-2 leading-relaxed">
+                    {m.bio}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    <span className="px-2 py-0.5 rounded-md bg-navy/[0.06] text-[10px] font-bold text-navy/70">
+                      {m.commitment}
+                    </span>
+                    <span
+                      className="px-2 py-0.5 rounded-md bg-orange/10 text-[10px] font-bold text-orange"
+                      dangerouslySetInnerHTML={{ __html: "★ " + m.superpower }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Risks */}
+        <div className="mt-6 rounded-2xl bg-white border border-navy/8 p-5 sm:p-6 shadow-soft">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+            <div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-navy/50">
+                Risks &amp; mitigation
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                We named them first. Then we killed them.
+              </h3>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-success/10 text-success text-xs font-bold">
+              <Check className="w-3 h-3" strokeWidth={3} />
+              Phased capital + stop-go gates
+            </div>
+          </div>
+
+          <div className="overflow-x-auto -mx-1">
+            <table className="min-w-[640px] w-full text-sm">
+              <thead>
+                <tr className="text-left text-[10px] font-bold uppercase tracking-wider text-navy/50 border-b border-navy/8">
+                  <th className="px-3 py-2.5">Risk</th>
+                  <th className="px-3 py-2.5">Likelihood</th>
+                  <th className="px-3 py-2.5">Mitigation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {RISKS.map((r) => (
+                  <tr
+                    key={r.risk}
+                    className="border-b border-navy/8 last:border-0 hover:bg-navy/[0.02] transition-colors"
+                  >
+                    <td className="px-3 py-3 font-bold text-navy align-top w-1/4">
+                      {r.risk}
+                    </td>
+                    <td className="px-3 py-3 align-top w-[110px]">
+                      <span
+                        className={cn(
+                          "inline-block px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider",
+                          r.likelihood === "High"
+                            ? "bg-red-100 text-red-600"
+                            : r.likelihood === "Medium"
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-success/10 text-success"
+                        )}
+                      >
+                        {r.likelihood}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3 text-navy/70 leading-snug align-top">
+                      {r.mitigation}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Exit strategy */}
+        <div className="mt-6 rounded-3xl bg-gradient-to-br from-navy via-navy-600 to-navy-700 text-white p-6 md:p-8 relative overflow-hidden">
+          <div className="absolute inset-0 dot-grid opacity-20" />
+          <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-orange/20 blur-3xl" />
+          <div className="relative">
+            <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+              <div>
+                <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange-300">
+                  Exit strategy
+                </div>
+                <h3 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                  Three independent paths to liquidity.
+                </h3>
+                <p className="text-white/65 text-sm mt-1 max-w-xl">
+                  Marketplace tech in AU exits at 8–20× ARR. Year 3 ARR of $9.8M lands the realistic case at $80M–$120M.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-3">
+              {EXIT_PATHS.map((e) => (
+                <div
+                  key={e.title}
+                  className="rounded-2xl bg-white/[0.05] border border-white/10 backdrop-blur-sm p-4 hover:bg-white/[0.08] transition-colors"
+                >
+                  <div
+                    className={cn(
+                      "text-[10px] font-bold uppercase tracking-wider mb-1",
+                      e.tone === "orange"
+                        ? "text-orange-300"
+                        : e.tone === "success"
+                        ? "text-success"
+                        : "text-white/65"
+                    )}
+                  >
+                    {e.likelihood}
+                  </div>
+                  <h4 className="font-black text-lg">{e.title}</h4>
+                  <div className="mt-3 space-y-1.5 text-xs">
+                    <ExitRow label="Timing" value={e.timing} />
+                    <ExitRow label="Multiple" value={e.multiple} />
+                    <ExitRow label="Range" value={e.range} highlight />
+                  </div>
+                  <p className="text-[11px] text-white/60 mt-3 leading-snug border-t border-white/10 pt-3">
+                    {e.acquirers}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* ROI table */}
+            <div className="mt-5 rounded-2xl bg-white/[0.05] border border-white/10 backdrop-blur-sm overflow-hidden">
+              <div className="px-5 py-3 border-b border-white/10">
+                <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange-300">
+                  ROI on $850K — by scenario
+                </div>
+              </div>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-[10px] font-bold uppercase tracking-wider text-white/55">
+                    <th className="px-5 py-2.5">Scenario</th>
+                    <th className="px-5 py-2.5">Year 3 ARR</th>
+                    <th className="px-5 py-2.5">Valuation range</th>
+                    <th className="px-5 py-2.5 text-right">ROI multiple</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ROI_TABLE.map((r) => (
+                    <tr
+                      key={r.scenario}
+                      className={cn(
+                        "border-t border-white/10",
+                        r.highlight && "bg-orange/10"
+                      )}
+                    >
+                      <td className="px-5 py-3 font-bold">
+                        <div className="flex items-center gap-2">
+                          {r.highlight && (
+                            <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-orange text-white tracking-wider">
+                              BASE
+                            </span>
+                          )}
+                          {r.scenario}
+                        </div>
+                      </td>
+                      <td className="px-5 py-3 tabular-nums text-white/85">
+                        {r.arr}
+                      </td>
+                      <td className="px-5 py-3 tabular-nums text-white/85">
+                        {r.valuation}
+                      </td>
+                      <td
+                        className={cn(
+                          "px-5 py-3 text-right font-black text-base tabular-nums",
+                          r.highlight ? "text-orange-300" : "text-white"
+                        )}
+                      >
+                        {r.multiple}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
         {/* Investment ask */}
         <div className="mt-6 rounded-3xl bg-gradient-to-br from-orange via-orange-600 to-orange-700 text-white p-6 md:p-10 relative overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-20" />
@@ -719,6 +1062,30 @@ function Milestone({
       <div className="text-[9px] text-white/55 font-bold uppercase tracking-wider">
         {caption}
       </div>
+    </div>
+  );
+}
+
+function ExitRow({
+  label,
+  value,
+  highlight,
+}: {
+  label: string;
+  value: string;
+  highlight?: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <span className="text-white/55 font-medium">{label}</span>
+      <span
+        className={cn(
+          "font-black tabular-nums",
+          highlight ? "text-orange-300" : "text-white"
+        )}
+      >
+        {value}
+      </span>
     </div>
   );
 }

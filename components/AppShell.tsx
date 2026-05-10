@@ -13,6 +13,7 @@ import {
   CreditCard,
   TrendingUp,
   User,
+  Rocket,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
@@ -27,6 +28,7 @@ const NAV = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, group: "tradie" },
   { href: "/pricing", label: "Pricing", icon: CreditCard, group: "tradie" },
   { href: "/investor", label: "Investor", icon: TrendingUp, group: "tradie" },
+  { href: "/discovery", label: "Discovery", icon: Rocket, group: "tradie", badge: "$12K" },
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -147,7 +149,7 @@ function SidebarItem({
   item,
   active,
 }: {
-  item: { href: string; label: string; icon: LucideIcon };
+  item: { href: string; label: string; icon: LucideIcon; badge?: string };
   active: boolean;
 }) {
   const Icon = item.icon;
@@ -169,7 +171,12 @@ function SidebarItem({
         />
       )}
       <Icon className={cn("w-[18px] h-[18px]", active && "text-orange")} strokeWidth={active ? 2.5 : 2} />
-      <span>{item.label}</span>
+      <span className="flex-1">{item.label}</span>
+      {item.badge && (
+        <span className="px-1.5 py-0.5 rounded-md bg-orange text-white text-[9px] font-black tracking-wider tabular-nums">
+          {item.badge}
+        </span>
+      )}
     </Link>
   );
 }
