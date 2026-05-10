@@ -1,15 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   FileText,
   Layout,
-  Users,
-  Search,
-  TrendingUp,
-  ClipboardList,
-  Target,
+  Code2,
+  Cpu,
   ShieldCheck,
+  Users,
   Calendar,
   DollarSign,
   Check,
@@ -17,85 +16,63 @@ import {
   Lock,
   Clock,
   RefreshCw,
+  Download,
+  Mail,
+  Rocket,
+  TrendingUp,
 } from "lucide-react";
+import { TRANCHES } from "@/lib/mockData";
 
-const DELIVERABLES = [
+const TRANCHE_1_DELIVERABLES = [
   {
     icon: <FileText className="w-5 h-5" />,
-    title: "Technical specification",
-    desc: "50–80 pages, ready for engineering build-out. No ambiguity. No surprises.",
+    title: "Final spec & architecture",
+    desc: "Complete technical specification, API design, data model, and infrastructure plan.",
   },
   {
     icon: <Layout className="w-5 h-5" />,
-    title: "Validated wireframes",
-    desc: "All 20+ key screens designed by a senior Australian product designer.",
+    title: "Full product design",
+    desc: "20+ key screens designed by a senior AU product designer. iOS + Android. Pixel-perfect.",
+  },
+  {
+    icon: <Code2 className="w-5 h-5" />,
+    title: "Initial development sprints",
+    desc: "Mobile app skeleton (RN + Expo). Backend API foundations. Verification flow stubs.",
   },
   {
     icon: <Users className="w-5 h-5" />,
     title: "Customer discovery",
-    desc: "15+ tradie interviews + 10+ customer interviews in the pilot city.",
+    desc: "15+ tradie interviews + 10+ customer interviews in Perth. Validated unit economics.",
   },
   {
-    icon: <Search className="w-5 h-5" />,
-    title: "Competitive deep-dive",
-    desc: "Mystery shopping HiPages, Oneflare, Airtasker. Real screenshots, real pricing, real friction.",
-  },
-  {
-    icon: <TrendingUp className="w-5 h-5" />,
-    title: "Revised projections",
-    desc: "Final business model with feedback-adjusted ARPU, CAC, retention and unit economics.",
-  },
-  {
-    icon: <ClipboardList className="w-5 h-5" />,
-    title: "Phase 1 build proposal",
-    desc: "Fixed quote, milestone-based payment schedule, locked timeline.",
-  },
-  {
-    icon: <Target className="w-5 h-5" />,
-    title: "Go-to-market plan",
-    desc: "Channel-by-channel CAC modeling. Pilot city playbook with weekly KPIs.",
+    icon: <Cpu className="w-5 h-5" />,
+    title: "Stack & vendor lock",
+    desc: "Final tech stack, design partner contracted, offshore engineering team onboarded.",
   },
   {
     icon: <ShieldCheck className="w-5 h-5" />,
-    title: "Risk & compliance audit",
-    desc: "Privacy Act, ABN verification, state license checks, App Store policy.",
+    title: "Compliance audit",
+    desc: "Privacy Act, ABN verification, state license checks, App Store policy review.",
   },
 ];
 
-const TIMELINE = [
-  {
-    week: "Week 1",
-    title: "Discovery & validation",
-    items: [
-      "Customer discovery interviews (Perth pilot)",
-      "Concept validation with 15+ tradies",
-      "Competitive teardown — HiPages / Airtasker / Oneflare",
-      "Initial wireframes for 8 hero screens",
-    ],
-  },
-  {
-    week: "Week 2",
-    title: "Architecture & costing",
-    items: [
-      "Technical architecture & stack selection",
-      "Detailed wireframes for all 20+ screens",
-      "Compliance audit (Privacy Act, licensing per state)",
-      "Cost model & resource plan",
-    ],
-  },
-  {
-    week: "Week 3",
-    title: "Compilation & delivery",
-    items: [
-      "Final document compilation",
-      "Phase 1 quote preparation (fixed, milestone-locked)",
-      "In-person presentation & Q&A with you",
-      "Sign-off & Phase 1 kickoff (or walk away)",
-    ],
-  },
+const PROTECTIONS = [
+  { t: "100% milestone-gated", d: "Tranche 2 unlocks only when Tranche 1 is delivered and audited." },
+  { t: "Independent technical audit", d: "Hire any technical advisor of your choosing to verify deliverables." },
+  { t: "All IP belongs to you", d: "No retention by Marwan. No licensing back. No parallel commercialization." },
+  { t: "Walk away with assets", d: "Stop after T1 → you keep the spec, design, app skeleton, and full team handover." },
 ];
 
-export default function DiscoveryPage() {
+// Pre-baked email body for Sign Tranche 1
+const TRANCHE_1_SUBJECT = encodeURIComponent(
+  "TradieMatch — Tranche 1 sign-off ($200K AUD)"
+);
+const TRANCHE_1_BODY = encodeURIComponent(
+  `Marwan,\n\nI've reviewed the v2 business plan and the live platform. Let's proceed with Tranche 1 ($200,000 AUD over Months 1–4).\n\nPlease send through:\n1. Engagement agreement for signature.\n2. Stripe / wire details for the $200K release.\n3. Project kickoff date (target: this week).\n\n— Braxton`
+);
+const SIGN_HREF = `mailto:hello@tradiematch.com.au?subject=${TRANCHE_1_SUBJECT}&body=${TRANCHE_1_BODY}`;
+
+export default function TrancheOnePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
@@ -111,7 +88,7 @@ export default function DiscoveryPage() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange/15 border border-orange/30 backdrop-blur-sm text-xs font-bold text-orange-300 mb-5"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
-            Step 1 of 5 · Pre-investment
+            Tranche 1 of 4 · First commitment
           </motion.div>
 
           <motion.h1
@@ -120,10 +97,10 @@ export default function DiscoveryPage() {
             transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.05]"
           >
-            The Discovery Phase.
+            Tranche 1.
             <br />
             <span className="bg-gradient-to-r from-orange-300 to-orange-500 bg-clip-text text-transparent">
-              $12K. 21 days.
+              $200K. 4 months.
             </span>
           </motion.h1>
 
@@ -133,9 +110,10 @@ export default function DiscoveryPage() {
             transition={{ delay: 0.18 }}
             className="mt-5 text-base sm:text-lg text-white/75 max-w-2xl leading-relaxed"
           >
-            Before you commit $850K AUD, we de-risk every assumption.
-            In three weeks you receive a complete, buildable plan &mdash;
-            yours to act on, shop elsewhere, or shelve.
+            The first of four conditional tranches. You release $200K to fund
+            Discovery, full product design, technical architecture, and the
+            initial development sprints. Tranche 2 unlocks only on milestone
+            delivery — your downside is capped at $200K, not $935K.
           </motion.p>
 
           <motion.div
@@ -145,10 +123,10 @@ export default function DiscoveryPage() {
             className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl"
           >
             {[
-              { v: "$12K", l: "Total cost", color: "orange" },
-              { v: "$6K", l: "Deposit (50%)", color: "white" },
-              { v: "21 days", l: "End-to-end", color: "white" },
-              { v: "100%", l: "Deductible from Phase 1", color: "success" },
+              { v: "$200K", l: "Tranche 1", color: "orange" },
+              { v: "4 months", l: "M1 – M4", color: "white" },
+              { v: "$160K", l: "Project budget", color: "white" },
+              { v: "$40K", l: "Marwan retainer", color: "white" },
             ].map((s) => (
               <div
                 key={s.l}
@@ -156,11 +134,7 @@ export default function DiscoveryPage() {
               >
                 <div
                   className={`text-2xl sm:text-3xl font-black tracking-tight tabular-nums ${
-                    s.color === "orange"
-                      ? "text-orange-300"
-                      : s.color === "success"
-                      ? "text-success"
-                      : "text-white"
+                    s.color === "orange" ? "text-orange-300" : "text-white"
                   }`}
                 >
                   {s.v}
@@ -178,34 +152,43 @@ export default function DiscoveryPage() {
             transition={{ delay: 0.34 }}
             className="mt-9 flex flex-col sm:flex-row gap-3"
           >
-            <button className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-orange hover:bg-orange-600 text-white font-bold rounded-xl shadow-glow btn-press transition-all min-h-[52px]">
-              Sign Discovery Agreement
+            <a
+              href={SIGN_HREF}
+              className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-orange hover:bg-orange-600 text-white font-bold rounded-xl shadow-glow btn-press transition-all min-h-[52px]"
+            >
+              <Mail className="w-4 h-4" />
+              Sign Tranche 1 Agreement
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </button>
-            <button className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold rounded-xl backdrop-blur-sm btn-press transition-all min-h-[52px]">
-              Download proposal PDF
-            </button>
+            </a>
+            <a
+              href="/TradieMatch_Business_Plan.docx"
+              download="TradieMatch_Business_Plan_v2.docx"
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold rounded-xl backdrop-blur-sm btn-press transition-all min-h-[52px]"
+            >
+              <Download className="w-4 h-4" />
+              Download Business Plan v2
+            </a>
           </motion.div>
         </div>
       </div>
 
-      {/* What you receive */}
+      {/* What Tranche 1 funds */}
       <section className="max-w-5xl mx-auto px-5 sm:px-6 py-14 md:py-20">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange mb-2">
-            8 deliverables · 1 fixed price
+            6 deliverables · 4 months · 1 fixed price
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
-            What you receive.
+            What Tranche 1 funds.
           </h2>
           <p className="text-navy/60 mt-3 text-base sm:text-lg">
-            Every output is yours to keep, regardless of whether we proceed
-            to Phase 1 together.
+            By the end of Month 4 you have a fully designed product, tested
+            architecture, and an app skeleton ready to go to MVP build.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
-          {DELIVERABLES.map((d, i) => (
+          {TRANCHE_1_DELIVERABLES.map((d, i) => (
             <motion.div
               key={d.title}
               initial={{ opacity: 0, y: 12 }}
@@ -230,136 +213,120 @@ export default function DiscoveryPage() {
         </div>
       </section>
 
-      {/* Timeline */}
+      {/* Capital plan — 4 tranches */}
       <section className="bg-gradient-to-b from-orange-50/50 to-white">
         <div className="max-w-5xl mx-auto px-5 sm:px-6 py-14 md:py-20">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange mb-2">
-              Timeline
+              Phased capital · Stop-go gates
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
-              Three weeks. Locked.
+              You commit $200K today. Not $935K.
             </h2>
             <p className="text-navy/60 mt-3 text-base sm:text-lg">
-              From signed agreement to in-person Q&amp;A presentation.
+              The full $935K is deployed in 4 conditional tranches. Each
+              unlocks only when the previous milestone is independently
+              verified. Maximum exposure at any decision point: $300K.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            {TIMELINE.map((t, i) => (
+          <div className="space-y-3">
+            {TRANCHES.map((t, i) => (
               <motion.div
-                key={t.week}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={t.n}
+                initial={{ opacity: 0, x: -8 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="relative rounded-2xl bg-white border border-navy/8 p-6 shadow-soft"
+                transition={{ delay: i * 0.07 }}
+                className={`relative rounded-2xl border-2 p-5 ${
+                  t.n === 1
+                    ? "border-orange bg-gradient-to-r from-orange/5 to-white shadow-card"
+                    : "border-navy/8 bg-white"
+                }`}
               >
-                <div className="absolute -top-3 left-6 px-3 py-1 rounded-full bg-navy text-white text-[10px] font-bold uppercase tracking-wider">
-                  {t.week}
-                </div>
-                <h3 className="font-black text-lg mt-2">{t.title}</h3>
-                <ul className="mt-4 space-y-2">
-                  {t.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2 text-sm text-navy/75"
+                <div className="grid md:grid-cols-12 gap-4 items-center">
+                  <div className="md:col-span-2 flex md:flex-col items-center md:items-start gap-3 md:gap-1">
+                    <div
+                      className={`w-12 h-12 rounded-2xl grid place-items-center font-black text-xl shrink-0 ${
+                        t.n === 1
+                          ? "bg-orange text-white shadow-glow"
+                          : "bg-navy/[0.06] text-navy"
+                      }`}
                     >
-                      <Check className="w-4 h-4 text-success shrink-0 mt-0.5" strokeWidth={3} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                      T{t.n}
+                    </div>
+                    <div>
+                      <div
+                        className={`text-2xl font-black tracking-tight tabular-nums ${
+                          t.n === 1 ? "text-orange" : "text-navy"
+                        }`}
+                      >
+                        {t.amount}
+                      </div>
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-navy/50">
+                        {t.months}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-6 min-w-0">
+                    <div className="font-black text-navy text-base">
+                      {t.title}
+                    </div>
+                    <div className="text-xs text-orange font-bold mt-0.5">
+                      Trigger: {t.trigger}
+                    </div>
+                    <p className="text-sm text-navy/65 mt-2 leading-snug">
+                      {t.desc}
+                    </p>
+                  </div>
+
+                  <div className="md:col-span-4 flex md:flex-col gap-2 md:gap-1 text-xs">
+                    <div className="flex-1 rounded-lg bg-navy/[0.04] px-3 py-2">
+                      <div className="text-[9px] font-bold uppercase tracking-wider text-navy/50">
+                        Project
+                      </div>
+                      <div className="font-black text-navy tabular-nums">
+                        {t.project}
+                      </div>
+                    </div>
+                    <div className="flex-1 rounded-lg bg-orange/10 px-3 py-2">
+                      <div className="text-[9px] font-bold uppercase tracking-wider text-orange">
+                        Marwan
+                      </div>
+                      <div className="font-black text-orange tabular-nums">
+                        {t.fees}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Investment terms */}
-      <section className="max-w-5xl mx-auto px-5 sm:px-6 py-14 md:py-20">
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange mb-2">
-              Investment terms
+          <div className="mt-6 rounded-2xl bg-navy text-white p-5 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-orange grid place-items-center text-white shrink-0">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-orange-300">
+                  Total program
+                </div>
+                <div className="font-black text-2xl tabular-nums">
+                  $935K AUD <span className="text-white/50 text-sm font-normal">over 18 months</span>
+                </div>
+              </div>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
-              Clean. Fixed.
-              <br />
-              Refundable into Phase 1.
-            </h2>
-            <p className="text-navy/60 mt-4 text-base leading-relaxed">
-              The $12K is 100% credited toward your Phase 1 build if we
-              proceed. If you walk away after Discovery, you keep the
-              spec, the wireframes, the interviews, and the model. No
-              lock-in. No retainer.
-            </p>
-
-            <div className="mt-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/10 text-success text-xs font-bold">
-              <Lock className="w-3 h-3" />
-              No equity. No IP claims. No hidden fees.
+            <div className="text-right">
+              <div className="text-[10px] uppercase tracking-wider text-white/55 font-bold">
+                Your Tranche 1 commitment
+              </div>
+              <div className="font-black text-3xl text-orange-300 tabular-nums">
+                $200K
+              </div>
             </div>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 12 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="rounded-3xl bg-white border-2 border-navy/8 shadow-card overflow-hidden"
-          >
-            <div className="bg-gradient-to-br from-navy to-navy-700 text-white p-6">
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-300">
-                Discovery agreement
-              </div>
-              <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-5xl font-black tracking-tight tabular-nums">
-                  $12,000
-                </span>
-                <span className="text-orange-300 text-sm font-bold">AUD</span>
-              </div>
-              <div className="text-xs text-white/55 mt-1">
-                One fixed price. No add-ons. No surprises.
-              </div>
-            </div>
-
-            <div className="divide-y divide-navy/8">
-              <TermsRow
-                icon={<DollarSign className="w-4 h-4" />}
-                label="Deposit (on signature)"
-                value="$6,000"
-                tag="50%"
-              />
-              <TermsRow
-                icon={<Calendar className="w-4 h-4" />}
-                label="Balance (on delivery, week 3)"
-                value="$6,000"
-                tag="50%"
-              />
-              <TermsRow
-                icon={<RefreshCw className="w-4 h-4" />}
-                label="Credit toward Phase 1 build"
-                value="100%"
-                tag="Deductible"
-                tone="success"
-              />
-              <TermsRow
-                icon={<Clock className="w-4 h-4" />}
-                label="Delivery window"
-                value="21 days"
-                tag="From signature"
-              />
-            </div>
-
-            <div className="p-5 bg-orange/5 border-t border-orange/15">
-              <button className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-orange hover:bg-orange-600 text-white font-bold shadow-glow btn-press transition-all min-h-[48px]">
-                Sign &amp; release $6K deposit
-                <ArrowRight className="w-4 h-4" />
-              </button>
-              <p className="text-[10px] text-navy/55 text-center mt-2 font-medium">
-                DocuSign + Stripe · Encrypted · Australian-incorporated
-              </p>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -375,30 +342,24 @@ export default function DiscoveryPage() {
                 Why this protects you
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
-                $12K is the cost of certainty
+                Capped downside.
                 <br />
-                before $850K of commitment.
+                Open upside.
               </h2>
               <p className="text-white/85 mt-5 text-base sm:text-lg leading-relaxed max-w-xl">
-                If, after Discovery, you decide not to proceed: you walk
-                away with a complete, professionally-documented business
-                plan and technical specification &mdash; yours to use,
-                shop to other partners, or shelve.
+                Tranche 1 is fully recoverable in real working assets — spec,
+                wireframes, design system, app skeleton — even if the project
+                halts at Month 4. Every subsequent tranche requires
+                independently verified milestones.
               </p>
-              <p className="text-white/70 mt-3 text-sm sm:text-base leading-relaxed max-w-xl">
-                If you proceed: the $12K is fully credited and we begin
-                Phase 1 with zero ambiguity, a fixed-quote build proposal,
-                and a validated go-to-market plan.
-              </p>
+              <div className="mt-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-xs font-bold">
+                <Lock className="w-3 h-3" />
+                No equity dilution at this stage. No IP claims by Marwan.
+              </div>
             </div>
 
             <div className="lg:col-span-5 grid grid-cols-1 gap-3">
-              {[
-                { t: "You keep all deliverables", d: "Spec, wireframes, interviews, model — yours." },
-                { t: "100% refundable as credit", d: "Deducted from Phase 1 if we proceed." },
-                { t: "No equity. No IP claims.", d: "Clean cash transaction. Australian law." },
-                { t: "Fixed price. Fixed timeline.", d: "21 days. Not 22. Not 30." },
-              ].map((b) => (
+              {PROTECTIONS.map((b) => (
                 <div
                   key={b.t}
                   className="flex items-start gap-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 p-4"
@@ -425,61 +386,31 @@ export default function DiscoveryPage() {
           Ready when you are, Braxton.
         </h2>
         <p className="text-navy/60 mt-4 text-base sm:text-lg max-w-xl mx-auto">
-          Sign today. We start customer discovery interviews this week.
-          You see the first wireframes by Day 7.
+          Sign the engagement agreement and release Tranche 1.
+          Discovery interviews start within 7 days. First weekly progress
+          report in your inbox by end of Week 1.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <button className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-navy hover:bg-navy-700 text-white font-bold rounded-xl shadow-lg btn-press transition-all min-h-[52px]">
-            Sign Discovery Agreement
+          <a
+            href={SIGN_HREF}
+            className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-navy hover:bg-navy-700 text-white font-bold rounded-xl shadow-lg btn-press transition-all min-h-[52px]"
+          >
+            <Mail className="w-4 h-4" />
+            Sign Tranche 1 Agreement
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </button>
-          <button className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white border-2 border-navy/10 hover:border-navy/30 text-navy font-bold rounded-xl btn-press transition-all min-h-[52px]">
-            Schedule a call instead
-          </button>
+          </a>
+          <Link
+            href="/investor"
+            className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-white border-2 border-navy/10 hover:border-navy/30 text-navy font-bold rounded-xl btn-press transition-all min-h-[52px]"
+          >
+            <Rocket className="w-4 h-4" />
+            Review investor metrics
+          </Link>
         </div>
         <p className="text-[11px] text-navy/40 font-medium mt-6">
           &mdash; Marwan, Co-founder &amp; Head of Product
         </p>
       </section>
-    </div>
-  );
-}
-
-function TermsRow({
-  icon,
-  label,
-  value,
-  tag,
-  tone,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  tag: string;
-  tone?: "success";
-}) {
-  return (
-    <div className="flex items-center gap-3 px-5 py-3.5">
-      <div
-        className={`shrink-0 w-8 h-8 rounded-lg grid place-items-center ${
-          tone === "success" ? "bg-success/10 text-success" : "bg-navy/8 text-navy"
-        }`}
-      >
-        {icon}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="text-sm font-semibold text-navy">{label}</div>
-      </div>
-      <div className="text-right shrink-0">
-        <div className="font-black text-navy text-base tabular-nums">{value}</div>
-        <div
-          className={`text-[10px] font-bold uppercase tracking-wider ${
-            tone === "success" ? "text-success" : "text-navy/45"
-          }`}
-        >
-          {tag}
-        </div>
-      </div>
     </div>
   );
 }

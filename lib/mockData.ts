@@ -707,7 +707,7 @@ export const SCENARIOS: Scenario[] = [
       { metric: "EBITDA", y1: "−$380K", y2: "+$300K", y3: "+$2.3M" },
     ],
     valuation: "$45M – $70M",
-    roi: "50× – 80×",
+    roi: "48× – 75×",
   },
   {
     id: "realistic",
@@ -722,7 +722,7 @@ export const SCENARIOS: Scenario[] = [
       { metric: "EBITDA", y1: "−$170K", y2: "+$1.4M", y3: "+$5.0M" },
     ],
     valuation: "$80M – $120M",
-    roi: "90× – 140×",
+    roi: "85× – 130×",
   },
   {
     id: "ambitious",
@@ -736,8 +736,195 @@ export const SCENARIOS: Scenario[] = [
       { metric: "EBITDA", y1: "+$50K", y2: "+$2.8M", y3: "+$8.0M" },
     ],
     valuation: "$150M – $220M",
-    roi: "175× – 260×",
+    roi: "160× – 235×",
   },
+];
+
+// 4 Conditional Tranches (BP v2)
+export const TRANCHES = [
+  {
+    n: 1,
+    amount: "$200K",
+    raw: 200,
+    title: "Discovery + Design + initial dev",
+    months: "M1 – M4",
+    trigger: "On signature of engagement agreement",
+    fees: "$40K Marwan",
+    project: "$160K project budget",
+    desc: "Discovery, full product design, technical architecture, initial development sprints. Decision point at end of Month 4.",
+    accent: "orange",
+  },
+  {
+    n: 2,
+    amount: "$300K",
+    raw: 300,
+    title: "MVP shipped + soft launch",
+    months: "M5 – M8",
+    trigger: "MVP live on App Store + Play Store · 50 closed-beta tradies",
+    fees: "$40K Marwan",
+    project: "$260K project budget",
+    desc: "Completion of MVP, soft launch marketing in pilot city, first sales hires. Decision point at end of M8 with first revenue.",
+    accent: "navy",
+  },
+  {
+    n: 3,
+    amount: "$235K",
+    raw: 235,
+    title: "Local validation",
+    months: "M9 – M12",
+    trigger: "200+ paying tradies · $20K+ MRR · 80%+ retention",
+    fees: "$40K Marwan",
+    project: "$195K project budget",
+    desc: "Scale marketing in pilot city, second city test, V2 product features, ops & support team.",
+    accent: "navy",
+  },
+  {
+    n: 4,
+    amount: "$200K",
+    raw: 200,
+    title: "National scale",
+    months: "M13 – M18",
+    trigger: "1,000+ paying tradies · CAC < $120 · LTV/CAC > 5×",
+    fees: "$50K Marwan",
+    project: "$150K project budget",
+    desc: "National marketing rollout (Sydney, Melbourne, Brisbane), advanced AI features, scale operations, Series A prep.",
+    accent: "success",
+  },
+];
+
+// 3 Levels of Engagement (BP v2)
+export const LEVELS = [
+  {
+    id: "level1",
+    name: "Level 1",
+    title: "MVP Live",
+    price: 440,
+    timeline: "8 months",
+    outcome: "App live on App Store + Play Store. 200–300 tradies onboarded in pilot city. Real users, real transactions.",
+    components: [
+      { item: "Discovery + Design + Architecture", cost: "$25K" },
+      { item: "iOS app development", cost: "$80K" },
+      { item: "Android app development", cost: "$80K" },
+      { item: "Backend infrastructure", cost: "$55K" },
+      { item: "Verification + payments + admin", cost: "$40K" },
+      { item: "Soft launch marketing", cost: "$80K" },
+      { item: "Marwan retainer (8 mo × $10K)", cost: "$80K" },
+    ],
+    tagline: "A defensible asset",
+  },
+  {
+    id: "level2",
+    name: "Level 2",
+    title: "Locally Validated",
+    price: 655,
+    timeline: "12 months",
+    outcome: "1,000+ paying tradies · $20–30K MRR · validated CAC and LTV. Model proven in one city, ready for national.",
+    components: [
+      { item: "Everything in Level 1", cost: "$440K" },
+      { item: "Pilot city scale marketing", cost: "$100K" },
+      { item: "Sales team (2 staff × 4 mo)", cost: "$35K" },
+      { item: "Operations + support", cost: "$40K" },
+      { item: "Marwan retainer (4 add. mo)", cost: "$40K" },
+    ],
+    tagline: "A defensible business",
+    popular: true,
+  },
+  {
+    id: "level3",
+    name: "Level 3",
+    title: "National Scale",
+    price: 935,
+    timeline: "18 months",
+    outcome: "4,000+ paying tradies · $250K+ MRR. Ready for Series A or strategic exit. National marketplace valued $80M–$120M.",
+    components: [
+      { item: "Everything in Level 2", cost: "$655K" },
+      { item: "National marketing", cost: "$180K" },
+      { item: "V2 product + matching AI", cost: "$40K" },
+      { item: "Marwan retainer (6 add. mo)", cost: "$60K" },
+    ],
+    tagline: "A defensible exit",
+  },
+];
+
+// FAQ from BP v2 Section 18
+export const FAQ = [
+  {
+    q: "Why $935K and not $500K or $2M?",
+    a: "$935K is the minimum viable budget to ship a quality MVP, validate it commercially in one city, and roll out nationally. Anything less means cutting build quality, marketing scale, or operational support. Anything more is wasted before product-market fit is proven.",
+  },
+  {
+    q: "What happens if we stop at Tranche 2?",
+    a: "You own a working app on the App Store and Play Store with around 200 paying tradies. The app is yours — you can sell it, mothball it, or hire someone else to continue. No money beyond Tranche 2 is spent.",
+  },
+  {
+    q: "What's the biggest risk to this project?",
+    a: "Tradie acquisition speed. Every previous HiPages challenger died not from bad product, but from inability to build supply fast enough. Braxton's existing tradie networks are the single biggest mitigant — and the reason this project has a higher chance of success than any independent founder could achieve.",
+  },
+  {
+    q: "How do I know Marwan delivers?",
+    a: "Three structural protections: (1) Tranches release only on milestone delivery — if Marwan doesn't ship, you don't pay. (2) All deliverables are audited at each gate by an independent technical advisor of your choosing. (3) Marwan's reputation, ABN, and contracts are tied to delivery — failure has consequences.",
+  },
+  {
+    q: "Why mobile-first instead of web-first?",
+    a: "78% of tradie engagement on HiPages is mobile. Customers also prefer mobile for high-trust hiring decisions where photos and instant chat matter. A desktop-first product would lose the audience.",
+  },
+  {
+    q: "What if HiPages launches a competing feature?",
+    a: "12–18 months minimum to ship real competing product. Their stack is legacy, their model is built on lead-sharing — pivoting is existential, not a feature toggle. By the time they react, we have brand, network, and switching costs.",
+  },
+  {
+    q: "Why Australia first, not international?",
+    a: "Marketplace businesses are won locally. Supply, demand, regulation, language and trust signals are country-specific. Win Australia, then NZ (similar regulation), then UK (large market, similar dynamics).",
+  },
+  {
+    q: "Who controls the IP and the company?",
+    a: "All IP, code, brand, and customer data belong to the entity Braxton designates as project owner. Marwan operates as an independent contractor. No IP retention by Marwan, no parallel commercialization, no licensing back.",
+  },
+  {
+    q: "Timeline from signature to first revenue?",
+    a: "8 months. Tranche 1 funds Discovery and 4 months of build. Tranche 2 covers MVP completion and soft launch in M6–M8. First subscription revenue typically arrives in M7.",
+  },
+  {
+    q: "What makes this different from failed marketplace attempts?",
+    a: "Three factors: (1) Strategic supply-side advantage via Braxton's existing networks — most challengers started cold. (2) Genuine product differentiation (exclusive matching), not just a UI refresh. (3) Phased capital deployment that prevents the typical marketplace death spiral of overspending pre-PMF.",
+  },
+];
+
+// Marwan compensation transparency (BP v2 Section 14)
+export const MARWAN_COMP = {
+  monthly: 10000,
+  months: 18,
+  cashTotal: 180000,
+  projectBudget: 765000,
+  totalRaise: 935000,
+  marwanPct: 18,
+  projectPct: 82,
+  industryBenchmark: "$15K–$25K / month",
+  whyBelowMarket:
+    "At $10K/month, Marwan is priced significantly below the AU fractional Head of Product / fractional CTO benchmark, in exchange for the long-term partnership and certainty of an 18-month engagement.",
+  retainerCovers: [
+    "Full product leadership: vision, roadmap, scope decisions",
+    "Project management: weekly sprint planning, vendor coordination",
+    "Vendor selection & management (design, engineering, marketing)",
+    "Weekly written reporting to Braxton with KPI tracking",
+    "Single point of contact — one person responsible for delivery",
+    "On-site presence in Australia for key meetings, launches & milestones",
+    "4 days/week dedicated commitment over 18 months",
+  ],
+  retainerExcludes: [
+    "Hands-on engineering (offshore team, paid from project budget)",
+    "Design execution (senior product designer, paid separately)",
+    "Marketing execution (growth lead + partner, paid separately)",
+  ],
+};
+
+// Updated headline metrics (BP v2 — adds Year 2)
+export const HEADLINE_METRICS = [
+  { metric: "Paying tradies", y1: "1,500", y2: "6,000", y3: "13,500" },
+  { metric: "Active customers", y1: "10,000", y2: "45,000", y3: "120,000" },
+  { metric: "Annual revenue (ARR)", y1: "$680K", y2: "$3.8M", y3: "$9.8M" },
+  { metric: "EBITDA", y1: "−$170K", y2: "+$1.4M", y3: "+$5.0M" },
+  { metric: "Estimated valuation", y1: "—", y2: "$25M – $35M", y3: "$80M – $120M" },
 ];
 
 export const TEAM = [
@@ -827,9 +1014,9 @@ export const EXIT_PATHS = [
 ];
 
 export const ROI_TABLE = [
-  { scenario: "Conservative", arr: "$5.8M", valuation: "$45M – $70M", multiple: "50× – 80×" },
-  { scenario: "Realistic", arr: "$9.8M", valuation: "$80M – $120M", multiple: "90× – 140×", highlight: true },
-  { scenario: "Ambitious", arr: "$15.0M", valuation: "$150M – $220M", multiple: "175× – 260×" },
+  { scenario: "Conservative", arr: "$5.8M", valuation: "$45M – $70M", multiple: "48× – 75×" },
+  { scenario: "Realistic", arr: "$9.8M", valuation: "$80M – $120M", multiple: "85× – 130×", highlight: true },
+  { scenario: "Ambitious", arr: "$15.0M", valuation: "$150M – $220M", multiple: "160× – 235×" },
 ];
 
 export const WHY_NOW = [

@@ -31,7 +31,12 @@ import {
   Quote as QuoteIcon,
   RotateCcw,
   Trophy,
+  Layers,
+  Mail,
+  HelpCircle,
+  Award,
 } from "lucide-react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   INVESTOR_GROWTH,
@@ -43,6 +48,11 @@ import {
   RISKS,
   EXIT_PATHS,
   ROI_TABLE,
+  TRANCHES,
+  LEVELS,
+  FAQ,
+  MARWAN_COMP,
+  HEADLINE_METRICS,
 } from "@/lib/mockData";
 import { AustraliaMap } from "@/components/AustraliaMap";
 import { CountUp } from "@/components/CountUp";
@@ -87,14 +97,21 @@ export default function InvestorPage() {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <button className="px-3.5 py-2 rounded-xl bg-white border border-navy/10 hover:border-navy/25 text-navy text-sm font-bold flex items-center gap-1.5 btn-press">
+            <a
+              href="/TradieMatch_Business_Plan.docx"
+              download="TradieMatch_Business_Plan_v2.docx"
+              className="px-3.5 py-2 rounded-xl bg-white border border-navy/10 hover:border-navy/25 text-navy text-sm font-bold flex items-center gap-1.5 btn-press"
+            >
               <Download className="w-3.5 h-3.5" />
-              Export deck
-            </button>
-            <button className="px-3.5 py-2 rounded-xl bg-navy text-white text-sm font-bold flex items-center gap-1.5 btn-press">
-              Schedule call
+              Download BP v2
+            </a>
+            <Link
+              href="/discovery"
+              className="px-3.5 py-2 rounded-xl bg-navy text-white text-sm font-bold flex items-center gap-1.5 btn-press"
+            >
+              Sign Tranche 1
               <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -871,6 +888,310 @@ export default function InvestorPage() {
           </div>
         </div>
 
+        {/* 4 Tranches */}
+        <div className="mt-6 rounded-2xl bg-white border border-navy/8 p-5 sm:p-6 shadow-soft">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+            <div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-navy/50">
+                Phased capital · 4 conditional tranches
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                Maximum exposure: $300K. Never $935K.
+              </h3>
+              <p className="text-sm text-navy/55 mt-1 max-w-2xl">
+                Each tranche unlocks only when the previous milestone is independently verified. You can stop after any tranche and still own a real, valuable asset.
+              </p>
+            </div>
+            <Link
+              href="/discovery"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange text-white text-xs font-bold shadow-glow btn-press"
+            >
+              Tranche 1 detail
+              <ArrowUpRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {TRANCHES.map((t, i) => (
+              <motion.div
+                key={t.n}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className={cn(
+                  "relative rounded-2xl border-2 p-4 flex flex-col",
+                  t.n === 1
+                    ? "border-orange bg-orange/5 shadow-card"
+                    : "border-navy/8 bg-white"
+                )}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div
+                    className={cn(
+                      "w-8 h-8 rounded-lg grid place-items-center font-black text-xs",
+                      t.n === 1
+                        ? "bg-orange text-white"
+                        : "bg-navy/[0.06] text-navy"
+                    )}
+                  >
+                    T{t.n}
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-navy/45">
+                    {t.months}
+                  </span>
+                </div>
+                <div
+                  className={cn(
+                    "text-2xl font-black tracking-tight tabular-nums",
+                    t.n === 1 ? "text-orange" : "text-navy"
+                  )}
+                >
+                  {t.amount}
+                </div>
+                <div className="font-bold text-navy text-sm mt-1 leading-tight">
+                  {t.title}
+                </div>
+                <p className="text-[11px] text-navy/55 mt-1.5 leading-snug">
+                  Trigger: {t.trigger}
+                </p>
+                <div className="mt-3 pt-3 border-t border-navy/8 flex justify-between text-[10px] font-bold">
+                  <span className="text-navy/55">Project</span>
+                  <span className="text-navy tabular-nums">{t.project.split("project")[0].trim()}</span>
+                </div>
+                <div className="flex justify-between text-[10px] font-bold">
+                  <span className="text-orange">Marwan</span>
+                  <span className="text-orange tabular-nums">{t.fees.split("Marwan")[0].trim()}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* 3 Levels of Engagement */}
+        <div className="mt-6">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+            <div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-navy/50 flex items-center gap-1.5">
+                <Layers className="w-3 h-3" />
+                Three levels of engagement
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                You decide how far you want to go.
+              </h3>
+              <p className="text-sm text-navy/55 mt-1 max-w-2xl">
+                Each level is a complete, defensible product. Stop after any level, you still own a real, valuable asset.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-4 items-stretch">
+            {LEVELS.map((l, i) => (
+              <motion.div
+                key={l.id}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className={cn(
+                  "relative rounded-2xl border-2 p-5 flex flex-col",
+                  l.popular
+                    ? "border-orange bg-gradient-to-br from-orange/5 to-white shadow-card lg:scale-[1.02] z-10"
+                    : "border-navy/8 bg-white shadow-soft"
+                )}
+              >
+                {l.popular && (
+                  <div className="absolute -top-3 left-5 px-2.5 py-0.5 rounded-full bg-orange text-white text-[10px] font-black uppercase tracking-wider shadow-glow">
+                    ⭐ Most likely path
+                  </div>
+                )}
+
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-navy/50">
+                      {l.name}
+                    </div>
+                    <h4 className="text-xl font-black mt-0.5">{l.title}</h4>
+                  </div>
+                  <span className="text-[10px] font-bold text-navy/55">
+                    {l.timeline}
+                  </span>
+                </div>
+
+                <div className="mt-3 flex items-baseline gap-1.5">
+                  <span className="text-4xl font-black tracking-tight tabular-nums">
+                    ${l.price}K
+                  </span>
+                  <span className="text-xs text-navy/50 font-bold">AUD</span>
+                </div>
+
+                <p className="text-xs text-navy/65 mt-2 leading-relaxed">
+                  {l.outcome}
+                </p>
+
+                <div className="mt-4 pt-4 border-t border-navy/8 space-y-1.5 flex-1">
+                  {l.components.map((c) => (
+                    <div
+                      key={c.item}
+                      className="flex items-center justify-between text-xs"
+                    >
+                      <span className="text-navy/65">{c.item}</span>
+                      <span className="font-bold text-navy tabular-nums">
+                        {c.cost}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div
+                  className={cn(
+                    "mt-4 pt-3 border-t-2 border-dashed text-[11px] font-bold uppercase tracking-wider",
+                    l.popular ? "border-orange/30 text-orange" : "border-navy/10 text-navy/55"
+                  )}
+                >
+                  ✦ {l.tagline}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Marwan compensation transparency */}
+        <div className="mt-6 rounded-2xl bg-white border border-navy/8 p-5 sm:p-6 shadow-soft">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+            <div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-navy/50 flex items-center gap-1.5">
+                <Award className="w-3 h-3" />
+                Compensation transparency
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                $0.82 of every $1.00 goes to the project.
+              </h3>
+              <p className="text-sm text-navy/55 mt-1 max-w-2xl">
+                Marwan operates as an independent contractor under his ABN, invoicing monthly. Below market rate, paid only on milestone delivery.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-4">
+            <div className="lg:col-span-1 rounded-2xl bg-gradient-to-br from-navy to-navy-700 text-white p-5 relative overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-orange/30 blur-3xl" />
+              <div className="relative">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-orange-300">
+                  Project budget
+                </div>
+                <div className="text-4xl font-black tracking-tight tabular-nums mt-1">
+                  ${MARWAN_COMP.projectBudget.toLocaleString("en-US")}
+                </div>
+                <div className="text-xs text-white/65 mt-1">
+                  82% &mdash; devs, design, marketing, infrastructure, ops
+                </div>
+
+                <div className="my-5 h-px bg-white/15" />
+
+                <div className="text-[10px] font-bold uppercase tracking-wider text-orange-300">
+                  Marwan compensation
+                </div>
+                <div className="text-4xl font-black tracking-tight tabular-nums mt-1">
+                  ${MARWAN_COMP.cashTotal.toLocaleString("en-US")}
+                </div>
+                <div className="text-xs text-white/65 mt-1">
+                  18% &mdash; product leadership &amp; delivery accountability
+                </div>
+
+                <div className="mt-5 pt-4 border-t border-white/15 text-[11px] text-white/55">
+                  $10K/month × 18 months · vs.{" "}
+                  <span className="font-bold text-white">
+                    {MARWAN_COMP.industryBenchmark}
+                  </span>{" "}
+                  AU benchmark
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 grid sm:grid-cols-2 gap-3">
+              <div className="rounded-2xl bg-success/5 border border-success/20 p-4">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-success mb-2 flex items-center gap-1">
+                  <Check className="w-3 h-3" strokeWidth={3} />
+                  Retainer covers
+                </div>
+                <ul className="space-y-1.5">
+                  {MARWAN_COMP.retainerCovers.slice(0, 5).map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-1.5 text-[12px] text-navy/75 leading-snug"
+                    >
+                      <Check className="w-3 h-3 text-success shrink-0 mt-0.5" strokeWidth={3} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl bg-navy/[0.03] border border-navy/8 p-4">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-navy/55 mb-2 flex items-center gap-1">
+                  <XIcon className="w-3 h-3" />
+                  Retainer does NOT cover
+                </div>
+                <ul className="space-y-1.5">
+                  {MARWAN_COMP.retainerExcludes.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-1.5 text-[12px] text-navy/65 leading-snug"
+                    >
+                      <XIcon className="w-3 h-3 text-navy/40 shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-3 pt-3 border-t border-navy/8 text-[11px] text-navy/55 italic leading-snug">
+                  Hands-on engineering, design execution &amp; marketing are
+                  performed by separately-contracted partners, paid from the
+                  project budget.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* FAQ */}
+        <div className="mt-6 rounded-2xl bg-white border border-navy/8 p-5 sm:p-6 shadow-soft">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+            <div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-navy/50 flex items-center gap-1.5">
+                <HelpCircle className="w-3 h-3" />
+                Frequently asked questions
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black tracking-tight mt-1">
+                The 10 questions Braxton might ask.
+              </h3>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-3">
+            {FAQ.map((f, i) => (
+              <details
+                key={f.q}
+                className="group rounded-xl border border-navy/8 bg-navy/[0.02] hover:bg-navy/[0.04] transition-colors"
+              >
+                <summary className="flex items-center justify-between gap-3 cursor-pointer list-none px-4 py-3">
+                  <span className="font-bold text-navy text-sm flex items-center gap-2">
+                    <span className="shrink-0 w-5 h-5 rounded-md bg-orange/10 text-orange grid place-items-center text-[10px] font-black">
+                      {i + 1}
+                    </span>
+                    {f.q}
+                  </span>
+                  <span className="shrink-0 text-navy/40 group-open:rotate-180 transition-transform">
+                    ▾
+                  </span>
+                </summary>
+                <div className="px-4 pb-4 text-sm text-navy/70 leading-relaxed">
+                  {f.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+
         {/* Investment ask */}
         <div className="mt-6 rounded-3xl bg-gradient-to-br from-orange via-orange-600 to-orange-700 text-white p-6 md:p-10 relative overflow-hidden">
           <div className="absolute inset-0 dot-grid opacity-20" />
@@ -881,23 +1202,23 @@ export default function InvestorPage() {
                 The ask
               </div>
               <h2 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
-                Raising $850K AUD to capture
+                Raising $935K AUD to capture
                 <br />
                 Australia&apos;s $2.5B tradie marketplace.
               </h2>
               <p className="text-white/85 mt-3 max-w-xl">
-                Pilot in Perth · sequential rollout to Sydney, Melbourne &amp;
-                Brisbane · target $9.8M ARR by Year 3 with 90&ndash;140&times; ROI.
+                Phased over 18 months in 4 conditional tranches. Pilot Perth &rarr;
+                Sydney, Melbourne, Brisbane. Target $9.8M ARR by Year 3 &mdash; 85&ndash;130&times; ROI.
               </p>
               <p className="text-white/65 mt-2 text-sm max-w-xl">
-                First commitment: <span className="font-bold text-white">$12K Discovery Phase</span> &mdash;
-                buildable spec, validated economics, phased capital plan in 21 days.
+                First commitment: <span className="font-bold text-white">Tranche 1 = $200K</span> &mdash;
+                Discovery + Design + initial dev sprints over 4 months. Maximum exposure capped at $300K at any decision point.
               </p>
             </div>
             <div className="md:col-span-5 grid grid-cols-2 gap-3">
               {[
-                { v: "$850K", l: "Total raise" },
-                { v: "$12K", l: "Discovery first" },
+                { v: "$935K", l: "Total program" },
+                { v: "$200K", l: "Tranche 1 only" },
                 { v: "18 mo", l: "Runway" },
                 { v: "$9.8M", l: "Year 3 ARR" },
               ].map((s) => (
@@ -914,6 +1235,31 @@ export default function InvestorPage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="relative mt-8 pt-8 border-t border-white/15 flex flex-col sm:flex-row gap-3">
+            <Link
+              href="/discovery"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-orange-600 font-black rounded-xl shadow-2xl btn-press hover:bg-orange-50 transition-all min-h-[48px]"
+            >
+              Sign Tranche 1 — $200K
+              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+            <a
+              href="/TradieMatch_Business_Plan.docx"
+              download="TradieMatch_Business_Plan_v2.docx"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/15 backdrop-blur-sm border border-white/20 text-white font-bold rounded-xl btn-press transition-all min-h-[48px]"
+            >
+              <Download className="w-4 h-4" />
+              Download BP v2
+            </a>
+            <a
+              href="mailto:hello@tradiematch.com.au?subject=TradieMatch%20%E2%80%94%20Pitch%20call%20request&body=Marwan%2C%0A%0ALet%27s%20schedule%20a%20call%20to%20walk%20through%20the%20business%20plan%20and%20Tranche%201.%0A%0A%E2%80%94%20Braxton"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/15 backdrop-blur-sm border border-white/20 text-white font-bold rounded-xl btn-press transition-all min-h-[48px]"
+            >
+              <Mail className="w-4 h-4" />
+              Schedule a call
+            </a>
           </div>
         </div>
       </div>

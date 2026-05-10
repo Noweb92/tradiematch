@@ -28,7 +28,7 @@ const NAV = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, group: "tradie" },
   { href: "/pricing", label: "Pricing", icon: CreditCard, group: "tradie" },
   { href: "/investor", label: "Investor", icon: TrendingUp, group: "tradie" },
-  { href: "/discovery", label: "Discovery", icon: Rocket, group: "tradie", badge: "$12K" },
+  { href: "/discovery", label: "Tranche 1", icon: Rocket, group: "tradie", badge: "$200K" },
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
