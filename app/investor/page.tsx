@@ -66,7 +66,7 @@ export default function InvestorPage() {
           <div>
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-navy/[0.06] text-navy/70 text-[11px] font-bold mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-              Confidential · Series A
+              Confidential · Pre-seed · Discovery Phase
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
               TradieMatch metrics
@@ -233,7 +233,8 @@ export default function InvestorPage() {
                   Break-even at month 14.
                 </h2>
                 <p className="text-white/65 text-sm mt-1 max-w-xl">
-                  Conservative case based on 5% monthly customer growth, 22% tradie attach, $89 ARPU and 78% gross margin.
+                  Realistic scenario: 1,500 paying tradies Year 1 &rarr; 13,500 Year 3.
+                  $63 weighted ARPU, 85% gross margin, 4.2-month CAC payback.
                 </p>
               </div>
               <div className="grid grid-cols-3 gap-2 text-right">
@@ -397,12 +398,12 @@ export default function InvestorPage() {
                 Unit economics
               </div>
               <div className="space-y-3">
-                <Metric label="CAC (blended)" value="$32" />
-                <Metric label="LTV (24-mo)" value="$1,247" />
-                <Metric label="LTV : CAC" value="39 : 1" highlight />
+                <Metric label="ARPU (weighted)" value="$63 / mo" />
+                <Metric label="CAC (blended)" value="$100" />
+                <Metric label="LTV (18-mo)" value="$1,134" />
+                <Metric label="LTV : CAC" value="10 : 1" highlight />
                 <Metric label="Payback" value="4.2 months" />
-                <Metric label="Net retention" value="142%" />
-                <Metric label="Gross margin" value="78%" />
+                <Metric label="Gross margin" value="85%" />
               </div>
             </div>
           </div>
@@ -537,21 +538,25 @@ export default function InvestorPage() {
                 The ask
               </div>
               <h2 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
-                Raising $8M Series A to capture
+                Raising $850K AUD to capture
                 <br />
-                Australia&apos;s $42B home services market.
+                Australia&apos;s $2.5B tradie marketplace.
               </h2>
               <p className="text-white/85 mt-3 max-w-xl">
-                Currently in 4 metros · expanding to NZ, UK and Western
-                Canada by EOY. Path to $5M ARR by Q4.
+                Pilot in Perth · sequential rollout to Sydney, Melbourne &amp;
+                Brisbane · target $9.8M ARR by Year 3 with 90&ndash;140&times; ROI.
+              </p>
+              <p className="text-white/65 mt-2 text-sm max-w-xl">
+                First commitment: <span className="font-bold text-white">$12K Discovery Phase</span> &mdash;
+                buildable spec, validated economics, phased capital plan in 21 days.
               </p>
             </div>
             <div className="md:col-span-5 grid grid-cols-2 gap-3">
               {[
-                { v: "$8M", l: "Round size" },
-                { v: "$42M", l: "Pre-money" },
+                { v: "$850K", l: "Total raise" },
+                { v: "$12K", l: "Discovery first" },
                 { v: "18 mo", l: "Runway" },
-                { v: "$5M", l: "ARR target" },
+                { v: "$9.8M", l: "Year 3 ARR" },
               ].map((s) => (
                 <div
                   key={s.l}
