@@ -31,9 +31,24 @@ const NAV = [
   { href: "/discovery", label: "Tranche 1", icon: Rocket, group: "tradie", badge: "$200K" },
 ];
 
+const AUTH_PREFIXES = [
+  "/login",
+  "/signup",
+  "/forgot-password",
+  "/reset-password",
+  "/auth/",
+  "/app/",
+];
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isLanding = pathname === "/";
+  const isAuthOrApp = AUTH_PREFIXES.some((p) => pathname.startsWith(p));
+
+  // Auth pages + authenticated app routes use their own layout — render raw.
+  if (isAuthOrApp) {
+    return <>{children}</>;
+  }
 
   return (
     <div className="min-h-screen flex bg-white">
