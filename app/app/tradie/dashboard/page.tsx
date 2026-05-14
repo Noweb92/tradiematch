@@ -11,6 +11,7 @@ import {
 import { requireRole } from "@/lib/auth/current-user";
 import { AppHeader } from "@/components/shared/AppHeader";
 import { tradeLabel } from "@/lib/constants/trades";
+import { ManageSubscriptionButton } from "@/components/tradie/ManageSubscriptionButton";
 
 export const metadata = { title: "Dashboard · TradieMatch" };
 
@@ -146,17 +147,29 @@ export default async function TradieDashboard() {
                 Update rates, bio, photos, availability.
               </div>
             </Link>
-            <Link
-              href="/pricing"
-              className="rounded-xl border border-navy/10 hover:border-orange/40 hover:bg-orange/5 p-4 transition-all"
-            >
-              <div className="font-bold text-navy">Manage subscription</div>
-              <div className="text-xs text-navy/55 mt-0.5">
-                {tradie.subscription_tier === "none"
-                  ? "Choose Basic / Pro / Elite"
-                  : "Switch plan or cancel"}
+            {tradie.subscription_tier === "none" ? (
+              <Link
+                href="/pricing"
+                className="rounded-xl border border-navy/10 hover:border-orange/40 hover:bg-orange/5 p-4 transition-all"
+              >
+                <div className="font-bold text-navy">Choose subscription</div>
+                <div className="text-xs text-navy/55 mt-0.5">
+                  Basic $49 · Pro $89 · Elite $149 per month
+                </div>
+              </Link>
+            ) : (
+              <div className="rounded-xl border border-navy/10 p-4 flex flex-col gap-2">
+                <div>
+                  <div className="font-bold text-navy">
+                    Manage subscription
+                  </div>
+                  <div className="text-xs text-navy/55 mt-0.5">
+                    Switch plan, update card, cancel — via Stripe.
+                  </div>
+                </div>
+                <ManageSubscriptionButton />
               </div>
-            </Link>
+            )}
             <Link
               href="/app/tradie/matches"
               className="rounded-xl border border-navy/10 hover:border-orange/40 hover:bg-orange/5 p-4 transition-all"

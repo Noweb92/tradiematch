@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Sparkles, Crown, Zap, ArrowRight, Star } from "lucide-react";
+import { Check, Sparkles, Crown, Zap, Star } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { SubscribeButton } from "@/components/tradie/SubscribeButton";
 
 interface Tier {
   id: string;
@@ -186,17 +187,13 @@ export default function PricingPage() {
                 )}
               </div>
 
-              <button
-                className={cn(
-                  "mt-5 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm btn-press",
-                  tier.popular
-                    ? "bg-orange hover:bg-orange-600 text-white shadow-glow"
-                    : "bg-navy hover:bg-navy-700 text-white"
-                )}
-              >
-                Get {tier.name}
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              <div className="mt-5">
+                <SubscribeButton
+                  tier={tier.id as "basic" | "pro" | "elite"}
+                  variant={tier.popular ? "primary" : "secondary"}
+                  label={`Get ${tier.name}`}
+                />
+              </div>
 
               <div className="mt-6 space-y-2.5">
                 {tier.features.map((f, idx) => (
