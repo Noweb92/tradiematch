@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { isAdminEmail } from "@/lib/auth/admin";
+import { sendWelcomeCustomer, sendWelcomeTradie } from "@/lib/email/send";
 
 /**
  * Supabase auth callback (email confirmation + Google OAuth).
@@ -20,6 +22,15 @@ export async function GET(request: Request) {
 
   if (error || !data.user) {
     return NextResponse.redirect(new URL(`/login?error=${error?.message ?? "auth"}`, url));
+  }
+
+  // Admin auto-promotion (ADMIN_EMAILS env)
+  if (isAdminEmail(data.user.email)) {
+    await supabase
+      .from("profiles")
+      .update({ role: "admin", onboarding_completed: true })
+      .eq("id", data.user.id);
+    return NextResponse.redirect(new URL("/app/admin/dashboard", url));
   }
 
   // If this is a fresh OAuth signup and role was passed via URL, write it into profile
@@ -48,12 +59,26 @@ export async function GET(request: Request) {
 
   const profileRes = await supabase
     .from("profiles")
-    .select("role, onboarding_completed")
+    .select("role, onboarding_completed, first_name")
     .eq("id", data.user.id)
     .single();
   const profile = profileRes.data as
-    | { role?: string; onboarding_completed?: boolean }
+    | { role?: string; onboarding_completed?: boolean; first_name?: string | null }
     | null;
+
+  // Fire welcome email on first email-confirm sign-in (idempotent if Resend is
+  // configured — Resend will dedupe by recipient if we hit a rate limit).
+  // We send only when this is the user's first session by checking created_at.
+  if (data.user.email && data.user.created_at) {
+    const ageMs = Date.now() - new Date(data.user.created_at).getTime();
+    if (ageMs < 5 * 60 * 1000) {
+      if (profile?.role === "customer") {
+        void sendWelcomeCustomer(data.user.email, profile.first_name ?? null);
+      } else if (profile?.role === "tradie") {
+        void sendWelcomeTradie(data.user.email, profile.first_name ?? null);
+      }
+    }
+  }
 
   let dest = "/";
   if (profile?.role === "admin") dest = "/app/admin/dashboard";

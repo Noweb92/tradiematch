@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { SwipeResult } from "@/lib/matching/types";
+import { sendNewMatchCustomer, sendNewMatchTradie } from "@/lib/email/send";
 
 export const runtime = "nodejs";
 
@@ -97,5 +98,67 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json(data as SwipeResult);
+  const result = data as SwipeResult;
+
+  // Fire-and-forget match notifications (both sides).
+  if (result.ok && result.matched && result.match_id) {
+    void notifyMatch(supabase, result.match_id);
+  }
+
+  return NextResponse.json(result);
+}
+
+async function notifyMatch(
+  supabase: ReturnType<typeof createSupabaseServerClient>,
+  matchId: string,
+) {
+  try {
+    const res = await supabase
+      .from("matches")
+      .select(
+        `
+        id,
+        jobs ( title ),
+        tradies ( business_name, profiles ( email, first_name ) ),
+        customers ( profiles ( email, first_name ) )
+      `,
+      )
+      .eq("id", matchId)
+      .single();
+    const m = res.data as
+      | {
+          jobs: { title: string } | null;
+          tradies: {
+            business_name: string | null;
+            profiles: { email: string; first_name: string | null } | null;
+          } | null;
+          customers: {
+            profiles: { email: string; first_name: string | null } | null;
+          } | null;
+        }
+      | null;
+    if (!m) return;
+    const customerEmail = m.customers?.profiles?.email;
+    const tradieEmail = m.tradies?.profiles?.email;
+    const jobTitle = m.jobs?.title ?? "Your job";
+    const business = m.tradies?.business_name ?? "Your tradie";
+    if (customerEmail) {
+      await sendNewMatchCustomer({
+        to: customerEmail,
+        tradieBusiness: business,
+        jobTitle,
+        matchId,
+      });
+    }
+    if (tradieEmail) {
+      await sendNewMatchTradie({
+        to: tradieEmail,
+        jobTitle,
+        customerFirst: m.customers?.profiles?.first_name ?? null,
+        matchId,
+      });
+    }
+  } catch (err) {
+    console.error("[notifyMatch]", err);
+  }
 }

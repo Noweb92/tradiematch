@@ -42,9 +42,25 @@ export function LoginForm() {
       return;
     }
 
-    // Decide post-login redirect based on profile role
+    // Decide post-login redirect based on profile role.
+    // We re-check role server-side via /auth/promote-admin to handle admin promotion.
     const userId = data.user?.id;
     if (userId) {
+      // Hit a server endpoint that will promote admin if env-allowed, then return the role.
+      try {
+        const resp = await fetch("/auth/promote-admin", { method: "POST" });
+        if (resp.ok) {
+          const j = (await resp.json()) as {
+            role?: string;
+            onboarding_completed?: boolean;
+          };
+          const fallback = redirectForRole(j.role, j.onboarding_completed);
+          router.push(next ?? fallback);
+          return;
+        }
+      } catch {
+        /* fall through to plain profile lookup */
+      }
       const profileRes = await supabase
         .from("profiles")
         .select("role, onboarding_completed")

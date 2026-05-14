@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { sendNewQuoteCustomer } from "@/lib/email/send";
 
 export const runtime = "nodejs";
 
@@ -85,6 +86,36 @@ export async function POST(request: Request) {
       valid_until: parsed.data.validUntil ?? null,
     } as Record<string, unknown>,
   });
+
+  // Fire-and-forget email to customer.
+  void (async () => {
+    try {
+      const ctx = await supabase
+        .from("matches")
+        .select(
+          "id, tradies(business_name), customers(profiles(email))",
+        )
+        .eq("id", parsed.data.matchId)
+        .single();
+      const m = ctx.data as
+        | {
+            tradies: { business_name: string | null } | null;
+            customers: { profiles: { email: string } | null } | null;
+          }
+        | null;
+      const customerEmail = m?.customers?.profiles?.email;
+      if (customerEmail) {
+        await sendNewQuoteCustomer({
+          to: customerEmail,
+          tradieBusiness: m?.tradies?.business_name ?? "Your tradie",
+          amount: parsed.data.amount,
+          matchId: parsed.data.matchId,
+        });
+      }
+    } catch (err) {
+      console.error("[quote-email]", err);
+    }
+  })();
 
   return NextResponse.json({ ok: true, quote_id: quote.id });
 }

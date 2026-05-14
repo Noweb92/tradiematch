@@ -78,28 +78,23 @@ Open <http://localhost:3000>.
 
 ---
 
-## What's done (Session #1)
+## What's done
 
-- [x] Database schema with RLS, RBAC, and all critical indexes
-- [x] TypeScript types matching the schema
-- [x] Supabase client/server/middleware integration
-- [x] Auth middleware with role-based route protection
-- [x] Signup pages (selection + customer + tradie)
-- [x] Login page with email/password + Google OAuth
-- [x] Forgot / reset password flow
-- [x] Auth callback for OAuth + email confirmation
-- [x] Logout
-- [x] Toast notifications (Sonner)
-- [x] Visual demo remains 100% functional
+- [x] **Session #1**: DB schema · auth · signup / login / reset
+- [x] **Session #2**: Onboarding (customer + tradie) · ABN verify (ABR) · Nominatim · Storage uploads · job creation
+- [x] **Session #3**: Stripe Subscriptions · webhooks · quota management · billing portal · daily quota reset cron
+- [x] **Session #4**: Matching engine (atomic RPC) · real-time chat (Supabase Realtime) · quote system · hourly expiry cron
+- [x] **Session #5**: Admin panel · transactional emails (Resend) · PWA manifest + service worker · seed script · final docs
 
-## What's next
+## What's not done — see `docs/KNOWN_LIMITATIONS.md`
 
-See `docs/ARCHITECTURE.md` → "Build plan" for the full session-by-session breakdown.
-
-- Session #2: Onboarding flows (customer + tradie) + ABN verification + Supabase Storage uploads
-- Session #3: Stripe subscriptions + webhooks + quota management
-- Session #4: Matching engine + real-time chat
-- Session #5: Admin panel + emails + PWA + seed + tests
+Most important gaps for production:
+- Real KYC (Onfido / Stripe Identity) — V1 uses manual admin review
+- Rate limiting (planned for Session #6)
+- E2E tests with Playwright
+- PostGIS for >10K tradies
+- Cookie consent banner
+- Push notifications
 
 ---
 

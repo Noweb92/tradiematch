@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { AppShell } from "@/components/AppShell";
+import { PWARegister } from "@/components/PWARegister";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,6 +16,19 @@ export const metadata: Metadata = {
   description:
     "Australia's smartest way to connect with verified tradies. Swipe, match, build. Plumbers, electricians, carpenters, painters and builders — all ABN-verified, insured, and ready.",
   metadataBase: new URL("https://tradiematch.com.au"),
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "TradieMatch",
+    statusBarStyle: "default",
+  },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icons/icon-192.svg", sizes: "192x192", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/icons/icon-192.svg", sizes: "192x192" }],
+  },
   openGraph: {
     title: "TradieMatch — Swipe. Match. Build.",
     description:
@@ -47,6 +61,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-white text-navy">
         <AppShell>{children}</AppShell>
         <Toaster position="top-center" richColors closeButton />
+        <PWARegister />
       </body>
     </html>
   );

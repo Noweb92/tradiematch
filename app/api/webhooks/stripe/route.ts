@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { getStripe } from "@/lib/stripe/client";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/server";
 import { quotaForTier, tierFromPriceId, type Tier } from "@/lib/stripe/tiers";
+import { sendPaymentFailed } from "@/lib/email/send";
 
 // Stripe needs the raw body to verify the signature. Disable Next.js's body
 // parsing and read the stream manually.
@@ -219,11 +220,25 @@ async function handlePaymentFailed(
     .subscription;
   if (!subId) return;
   const id = typeof subId === "string" ? subId : subId.id;
-  await supabase
+  const upd = await supabase
     .from("tradies")
     .update({ subscription_status: "past_due" })
-    .eq("stripe_subscription_id", id);
-  // TODO Session #5: email tradie "Payment failed — update your card".
+    .eq("stripe_subscription_id", id)
+    .select("profile_id, profiles(email, first_name)")
+    .maybeSingle();
+
+  const tradie = upd.data as
+    | {
+        profile_id: string;
+        profiles: { email: string; first_name: string | null } | null;
+      }
+    | null;
+  if (tradie?.profiles?.email) {
+    await sendPaymentFailed({
+      to: tradie.profiles.email,
+      firstName: tradie.profiles.first_name,
+    });
+  }
 }
 
 // --- utils ---------------------------------------------------------------
