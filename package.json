@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "tsx scripts/seed-dev.ts"
+    "seed": "tsx --env-file=.env.local scripts/seed-dev.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

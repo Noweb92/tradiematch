@@ -123,7 +123,7 @@ async function seedTradies(count: number) {
   for (let i = 0; i < count; i++) {
     const first = rand(FIRST_NAMES);
     const last = rand(LAST_NAMES);
-    const email = `tradie${i + 1}@dev.tradiematch.com.au`;
+    const email = `tradie${i + 1}@seed.tradiematch.example.com`;
     const [suburb, postcode, lat, lon] = rand(PERTH_SUBURBS);
     const id = await ensureUser(email, "Tradie!1234", {
       role: "tradie",
@@ -205,7 +205,7 @@ async function seedCustomers(count: number) {
   console.log(`→ ${count} customers`);
   for (let i = 0; i < count; i++) {
     const first = rand(FIRST_NAMES);
-    const email = `customer${i + 1}@dev.tradiematch.com.au`;
+    const email = `customer${i + 1}@seed.tradiematch.example.com`;
     const [suburb, postcode, lat, lon] = rand(PERTH_SUBURBS);
     const id = await ensureUser(email, "Tradie!1234", {
       role: "customer",
